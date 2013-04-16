@@ -195,7 +195,7 @@ angular.module('xwiki', ['ngResource'])
 
 function XWikiSearchCtrl($scope, $resource) {
     $scope.searchTerm = ""
-    $scope.xwikiQuery = $resource('/xwiki/wiki/angularjs/get/Phones/PhonesLiveTableResults',
+    $scope.xwikiQuery = $resource('/xwiki/bin/get/Phones/PhonesLiveTableResults',
         {"doc.title":"", outputSyntax: "plain", transprefix : "phones.livetable.", classname: "Phones.PhonesClass", collist : "_image,doc.title,os,os_version,screen_size,hardware_cpu,details", offset: "1", limit: "15", reqNo: "1", sort : "doc.title", dir: "asc"},
         {get:{method:'GET'}});
 
@@ -204,13 +204,13 @@ function XWikiSearchCtrl($scope, $resource) {
     };
 
     $scope.doGet = function(docName, docDetails) {
-     $scope.xwikiDocQuery = $resource('/xwiki/rest/wikis/angularjs/spaces/Phones/pages/:docName',
+     $scope.xwikiDocQuery = $resource('/xwiki/rest/wikis/xwiki/spaces/Phones/pages/:docName',
         {docName: "", media: "json"},
         {get:{method:'GET'}});
-     $scope.xwikiObjectQuery = $resource('/xwiki/rest/wikis/angularjs/spaces/Phones/pages/:docName/objects/Phones.PhonesClass/0',
+     $scope.xwikiObjectQuery = $resource('/xwiki/rest/wikis/xwiki/spaces/Phones/pages/:docName/objects/Phones.PhonesClass/0',
         {docName: "", media: "json"},
         {get:{method:'GET'}});
-     $scope.xwikiAttachQuery = $resource('/xwiki/rest/wikis/angularjs/spaces/Phones/pages/:docName/attachments',
+     $scope.xwikiAttachQuery = $resource('/xwiki/rest/wikis/xwiki/spaces/Phones/pages/:docName/attachments',
         {docName: "", media: "json"},
         {get:{method:'GET'}});
 
