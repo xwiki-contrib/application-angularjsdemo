@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xwikidoc>
+<web>Phones</web>
+<name>PhonesTranslations</name>
+<language></language>
+<defaultLanguage></defaultLanguage>
+<translation>0</translation>
+<parent>PhonesClass</parent>
+<creator>XWiki.Admin</creator>
+<author>XWiki.Admin</author>
+<customClass></customClass>
+<contentAuthor>XWiki.Admin</contentAuthor>
+<creationDate>1356994800000</creationDate>
+<date>1356994800000</date>
+<contentUpdateDate>1356994800000</contentUpdateDate>
+<version>1.1</version>
+<title></title>
+<template></template>
+<defaultTemplate></defaultTemplate>
+<validationScript></validationScript>
+<comment></comment>
+<minorEdit>false</minorEdit>
+<syntaxId>xwiki/2.1</syntaxId>
+<hidden>true</hidden>
+<object>
+<class>
+<name>XWiki.TranslationDocumentClass</name>
+<customClass></customClass>
+<customMapping></customMapping>
+<defaultViewSheet></defaultViewSheet>
+<defaultEditSheet></defaultEditSheet>
+<defaultWeb></defaultWeb>
+<nameField></nameField>
+<validationScript></validationScript>
+<scope>
+<cache>0</cache>
+<disabled>0</disabled>
+<displayType>select</displayType>
+<multiSelect>0</multiSelect>
+<name>scope</name>
+<number>1</number>
+<prettyName>Scope</prettyName>
+<relationalStorage>0</relationalStorage>
+<separator> </separator>
+<separators> ,|</separators>
+<size>1</size>
+<unmodifiable>0</unmodifiable>
+<values>GLOBAL|WIKI|USER|ON_DEMAND</values>
+<classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+</scope>
+</class>
+<name>Phones.PhonesTranslations</name>
+<number>0</number>
+<className>XWiki.TranslationDocumentClass</className>
+<guid>51ca934d-1b0b-4d78-ad6c-4357492dc256</guid>
+<property>
+<scope>ON_DEMAND</scope>
+</property>
+</object>
+<content># Class fields
+Phones.PhonesClass_name=Name
+Phones.PhonesClass_details=Details
+Phones.PhonesClass_hardware_cpu=CPU
+Phones.PhonesClass_usb=USB
+Phones.PhonesClass_usb_usb1=USB 1.0
+Phones.PhonesClass_usb_usb2=USB 2.0
+Phones.PhonesClass_os=OS
+Phones.PhonesClass_os_blackberry=blackberry
+Phones.PhonesClass_os_windowsphone=windowsphone
+Phones.PhonesClass_os_android=android
+Phones.PhonesClass_os_ios=ios
+Phones.PhonesClass_os_version=OS Version
+Phones.PhonesClass_screen_resolution=Screen RESOLUTION
+Phones.PhonesClass_screen_resolution_WXGA=WXGA (1200 x 800)
+Phones.PhonesClass_screen_resolution_other=Other
+Phones.PhonesClass_screen_resolution_VGA=VGA (640 x 480)
+Phones.PhonesClass_screen_size=Screen Size
+Phones.PhonesClass_ram=ram
+Phones.PhonesClass_storage=Storage
+Phones.PhonesClass_weight=Weight
+
+# Live table generic keys
+phones.livetable.doc.title=Page title
+phones.livetable.doc.name=Page name
+phones.livetable.doc.space=Space
+phones.livetable.doc.fullname=Page full name
+phones.livetable.doc.author=Last Author
+phones.livetable.doc.creator=Creator
+phones.livetable.doc.date=Update date
+phones.livetable.doc.creationDate=Creation date
+phones.livetable._avatar=Avatar
+phones.livetable._images=Images
+phones.livetable._image=Image
+phones.livetable._attachments=Attachments
+phones.livetable._actions=Actions
+phones.livetable._actions.edit=Edit
+phones.livetable._actions.delete=Delete
+phones.livetable.emptyvalue=-
+
+# Live table specific keys
+phones.livetable.name=Name
+phones.livetable.details=Details
+phones.livetable.hardware_cpu=CPU
+phones.livetable.usb=USB
+phones.livetable.os=OS
+phones.livetable.os_version=OS Version
+phones.livetable.screen_resolution=Screen RESOLUTION
+phones.livetable.screen_size=Screen Size
+phones.livetable.ram=ram
+phones.livetable.storage=Storage
+phones.livetable.weight=Weight</content></xwikidoc>

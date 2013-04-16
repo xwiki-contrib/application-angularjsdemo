@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xwikidoc>
+<web>Phones</web>
+<name>AngularSearch</name>
+<language></language>
+<defaultLanguage>en</defaultLanguage>
+<translation>0</translation>
+<parent>Phones.WebHome</parent>
+<creator>XWiki.Admin</creator>
+<author>XWiki.Admin</author>
+<customClass></customClass>
+<contentAuthor>XWiki.Admin</contentAuthor>
+<creationDate>1356994800000</creationDate>
+<date>1356994800000</date>
+<contentUpdateDate>1356994800000</contentUpdateDate>
+<version>1.1</version>
+<title>Phone Search with AngularJS</title>
+<template></template>
+<defaultTemplate></defaultTemplate>
+<validationScript></validationScript>
+<comment></comment>
+<minorEdit>false</minorEdit>
+<syntaxId>xwiki/2.1</syntaxId>
+<hidden>false</hidden>
+<object>
+<class>
+<name>XWiki.StyleSheetExtension</name>
+<customClass></customClass>
+<customMapping></customMapping>
+<defaultViewSheet></defaultViewSheet>
+<defaultEditSheet></defaultEditSheet>
+<defaultWeb></defaultWeb>
+<nameField></nameField>
+<validationScript></validationScript>
+<cache>
+<cache>0</cache>
+<disabled>0</disabled>
+<displayType>select</displayType>
+<multiSelect>0</multiSelect>
+<name>cache</name>
+<number>5</number>
+<prettyName>Caching policy</prettyName>
+<relationalStorage>0</relationalStorage>
+<separator> </separator>
+<separators> ,|</separators>
+<size>1</size>
+<unmodifiable>0</unmodifiable>
+<values>long|short|default|forbid</values>
+<classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+</cache>
+<code>
+<disabled>0</disabled>
+<name>code</name>
+<number>2</number>
+<prettyName>Code</prettyName>
+<rows>20</rows>
+<size>50</size>
+<unmodifiable>0</unmodifiable>
+<classType>com.xpn.xwiki.objects.classes.TextAreaClass</classType>
+</code>
+<name>
+<disabled>0</disabled>
+<name>name</name>
+<number>1</number>
+<prettyName>Name</prettyName>
+<size>30</size>
+<unmodifiable>0</unmodifiable>
+<classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+</name>
+<parse>
+<disabled>0</disabled>
+<displayFormType>select</displayFormType>
+<displayType>yesno</displayType>
+<name>parse</name>
+<number>4</number>
+<prettyName>Parse content</prettyName>
+<unmodifiable>0</unmodifiable>
+<classType>com.xpn.xwiki.objects.classes.BooleanClass</classType>
+</parse>
+<use>
+<cache>0</cache>
+<disabled>0</disabled>
+<displayType>select</displayType>
+<multiSelect>0</multiSelect>
+<name>use</name>
+<number>3</number>
+<prettyName>Use this extension</prettyName>
+<relationalStorage>0</relationalStorage>
+<separator> </separator>
+<separators> ,|</separators>
+<size>1</size>
+<unmodifiable>0</unmodifiable>
+<values>currentPage=Always on this page|onDemand=On demand|always=Always on this wiki</values>
+<classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+</use>
+</class>
+<name>Phones.AngularSearch</name>
+<number>0</number>
+<className>XWiki.StyleSheetExtension</className>
+<guid>eec582e1-d87f-4e21-ada2-bf402e6a8397</guid>
+<property>
+<cache>long</cache>
+</property>
+<property>
+<code>/* app css stylesheet */
+
+.phones {
+  list-style: none;
+}
+
+.thumb {
+  float: left;
+  margin: -1em 1em 1.5em 0em;
+  padding-bottom: 1em;
+  height: 70px;
+  width: 70px;
+}
+
+.phones li {
+  clear: both;
+  height: 100px;
+  padding-top: 15px;
+}
+
+/** Detail View **/
+img.phone {
+  float: left;
+  border: 1px solid black;
+  margin-right: 3em;
+  margin-bottom: 2em;
+  background-color: white;
+  padding: 2em;
+  height: 250px;
+  width: 250px;
+}
+
+ul.phone-thumbs {
+  margin: 0;
+  list-style: none;
+}
+
+ul.phone-thumbs li {
+  border: 1px solid black;
+  display: inline-block;
+  margin: 0.5em;
+  background-color: white;
+}
+
+ul.phone-thumbs img {
+  height: 60px;
+  width: 60px;
+  padding: 0.5em;
+}
+
+ul.phone-thumbs img:hover {
+  cursor: pointer;
+}
+
+
+ul.specs {
+  clear: both;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+ul.specs &gt; li{
+  display: inline-block;
+  width: 200px;
+  vertical-align: top;
+}
+
+ul.specs &gt; li &gt; span{
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+ul.specs dt {
+  font-weight: bold;
+}</code>
+</property>
+<property>
+<name></name>
+</property>
+<property>
+<parse></parse>
+</property>
+<property>
+<use>currentPage</use>
+</property>
+</object>
+<content>{{angular app="xwiki" css="1"}}
+&lt;script type="text/javascript"&gt;
+angular.module('xwiki', ['ngResource'])
+
+function XWikiSearchCtrl($scope, $resource) {
+    $scope.searchTerm = ""
+    $scope.xwikiQuery = $resource('/xwiki/wiki/angularjs/get/Phones/PhonesLiveTableResults',
+        {"doc.title":"", outputSyntax: "plain", transprefix : "phones.livetable.", classname: "Phones.PhonesClass", collist : "_image,doc.title,os,os_version,screen_size,hardware_cpu,details", offset: "1", limit: "15", reqNo: "1", sort : "doc.title", dir: "asc"},
+        {get:{method:'GET'}});
+
+    $scope.doSearch = function () {
+        $scope.xwikiQueryResult = $scope.xwikiQuery.get({"doc.title": $scope.searchTerm});
+    };
+
+    $scope.doGet = function(docName, docDetails) {
+     $scope.xwikiDocQuery = $resource('/xwiki/rest/wikis/angularjs/spaces/Phones/pages/:docName',
+        {docName: "", media: "json"},
+        {get:{method:'GET'}});
+     $scope.xwikiObjectQuery = $resource('/xwiki/rest/wikis/angularjs/spaces/Phones/pages/:docName/objects/Phones.PhonesClass/0',
+        {docName: "", media: "json"},
+        {get:{method:'GET'}});
+     $scope.xwikiAttachQuery = $resource('/xwiki/rest/wikis/angularjs/spaces/Phones/pages/:docName/attachments',
+        {docName: "", media: "json"},
+        {get:{method:'GET'}});
+
+     $scope.mainImageUrl = "";
+     $scope.phone = docName;
+     $scope.details = docDetails;
+     $scope.properties = {};
+     $scope.images = [];
+     $scope.doc = $scope.xwikiDocQuery.get({docName: docName});
+     $scope.attachments = $scope.xwikiAttachQuery.get({docName: docName}, function(attachments) {
+        for (var i=0;i&lt;attachments.attachments.length;i++) {
+         if (i==0) {
+           $scope.mainImageUrl = attachments.attachments[i].xwikiAbsoluteUrl;
+         }
+         $scope.images.push(attachments.attachments[i].xwikiAbsoluteUrl);
+        }
+     });
+     $scope.object = $scope.xwikiObjectQuery.get({docName: docName}, function(object) {
+      for (var i=0;i&lt;object.properties.length;i++) {
+        var property = object.properties[i];
+        $scope.properties[property["name"]] = property.value          
+      }
+     });
+    };
+
+    $scope.setImage =  function(img)  {
+     $scope.mainImageUrl = img;
+    }
+  
+    // launch a first search
+    $scope.doSearch();
+}
+
+//XWikiSearchCtrl.$inject = ['$scope', '$resource'];
+
+&lt;/script&gt;
+&lt;div ng-controller="XWikiSearchCtrl"&gt;
+   &lt;table border="0" width="100%"&gt;
+   &lt;tr&gt;&lt;td width="20%" style="vertical-align: top;"&gt;
+    &lt;form class="form-horizontal"&gt;
+        &lt;input type="text" ng-model="searchTerm"&gt;
+        &lt;button class="btn" ng-click="doSearch()"&gt;&lt;i class="icon-search"&gt;&lt;/i&gt;Search&lt;/button&gt;
+    &lt;/form&gt;
+    &lt;table class="table table-striped" border="0"&gt;
+        &lt;tr ng-repeat="doc in xwikiQueryResult.rows"&gt;
+         &lt;td&gt;&lt;a href="" ng-click="doGet(doc.doc_name, doc.details)" ng-bind-html-unsafe="doc._image"&gt;&lt;/a&gt;&lt;/td&gt;&lt;td&gt;&lt;a href="" ng-click="doGet(doc.doc_name, doc.details)"&gt;{{doc.doc_title}}&lt;/a&gt;
+         &lt;/td&gt;   
+        &lt;/tr&gt;
+    &lt;/table&gt;
+    &lt;/td&gt;
+    &lt;td ng-show="phone"&gt;
+      &lt;table&gt;
+      &lt;tr&gt;
+       &lt;td style="vertical-align: top;"&gt;
+        &lt;img ng-src="{{mainImageUrl}}" class="phone"&gt;
+        &lt;br /&gt;
+         &lt;ul class="phone-thumbs"&gt;
+          &lt;li ng-repeat="img in images"&gt;
+           &lt;img ng-src="{{img}}" ng-click="setImage(img)"&gt;
+          &lt;/li&gt;
+         &lt;/ul&gt;
+       &lt;/td&gt;
+       &lt;td style="vertical-align: top;"&gt;
+        &lt;h2&gt;{{phone}}&lt;/h2&gt;
+         &lt;span ng-bind-html-unsafe="details"&gt;&lt;/span&gt;
+         &lt;ul&gt;
+          &lt;li&gt;CPU: {{properties.hardware_cpu}}&lt;/li&gt;
+          &lt;li&gt;USB: {{properties.usb}}&lt;/li&gt;
+          &lt;li&gt;OS: {{properties.os}} {{properties.os_version}}&lt;/li&gt;
+          &lt;li&gt;Screen size: {{properties.screen_size}} inches&lt;/li&gt;
+          &lt;li&gt;Screen resolution: {{properties.screen_resolution}}&lt;/li&gt;
+          &lt;li&gt;RAM: {{properties.ram}}GB&lt;/li&gt;
+          &lt;li&gt;Storage: {{properties.storage}}GB&lt;/li&gt;
+          &lt;li&gt;Weight: {{properties.weigth}}g&lt;/li&gt;
+         &lt;/ul&gt;
+        &lt;/td&gt;
+       &lt;/tr&gt;
+      &lt;/table&gt;
+     &lt;/td&gt;
+    &lt;/tr&gt;
+   &lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+{{/angular}}</content></xwikidoc>
